@@ -1,13 +1,11 @@
 module Helper exposing (..)
---1.0
+-- 1.0
 type alias ProgrammingLanguage =
     { name : String
     , releaseYear : Int
     , currentVersion : String
     }
-
-
---1.1
+-- 1.1
 languages : List ProgrammingLanguage
 languages =
     [ { name = "elm"
@@ -19,44 +17,28 @@ languages =
       , currentVersion = "ECMAScript 2025"
       }
     ]
-
-
-
---1.2
+-- 1.2
 languageNames : List ProgrammingLanguage -> List String
 languageNames langs =
     List.map (\lang -> lang.name) langs
-
-
-
---2.0
+-- 2.0
 type alias User =
     { name : String
     , uType : String
     }
-
-
---2.1
+-- 2.1
 users : List User
 users =
     [ { name = "Roberto", uType = "Student" }
     , { name = "Mitsiu", uType = "Professor" }
     ]
-
-
---2,2
+-- 2.2
 onlyStudents : List User -> List String
 onlyStudents userList =
-    List.map
-        (\user ->
-            if user.uType == "Student" then
-                user.name
-            else
-                ""
-        )
-        userList
-
---3.0
+    userList
+        |> List.filter (\user -> user.uType == "Student")
+        |> List.map .name
+-- 3.0
 type alias Videogame =
     { title : String
     , releaseYear : Int
@@ -64,8 +46,7 @@ type alias Videogame =
     , downloads : Int
     , genres : List String
     }
-
----3.1
+-- 3.1
 videogames : List Videogame
 videogames =
     [ { title = "Control"
@@ -81,8 +62,7 @@ videogames =
       , genres = [ "Action", "Adventure" ]
       }
     ]
-
---3.2
+-- 3.2
 getVideogameGenres : List Videogame -> List (List String)
 getVideogameGenres games =
     List.map (\game -> game.genres) games

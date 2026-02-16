@@ -1,44 +1,40 @@
 module Helper exposing (..)
--- 1.0
-type alias ProgrammingLanguage =
+import Html exposing (Html, div, h1, ul, li, text)
+-- FUNCTIONS
+add2 : Int -> Int -> Int
+add2 x y =
+    x + y
+add3 : Float -> Float -> Float -> Float
+add3 x y z =
+    x + y + z
+calc : Int -> Int -> (Int -> Int -> Int) -> Int
+calc x y op =
+    op x y
+-- TYPES
+type alias Language =
     { name : String
     , releaseYear : Int
     , currentVersion : String
     }
--- 1.1
-languages : List ProgrammingLanguage
-languages =
-    [ { name = "elm"
-      , releaseYear = 2012
-      , currentVersion = "0.19.1"
-      }
-    , { name = "javascript"
-      , releaseYear = 1995
-      , currentVersion = "ECMAScript 2025"
-      }
-    ]
--- 1.2
-languageNames : List ProgrammingLanguage -> List String
-languageNames langs =
-    List.map (\lang -> lang.name) langs
--- 2.0
+languageNames : List Language -> List String
+languageNames languages =
+    List.map .name languages
 type alias User =
     { name : String
     , uType : String
     }
--- 2.1
-users : List User
-users =
-    [ { name = "Roberto", uType = "Student" }
-    , { name = "Mitsiu", uType = "Professor" }
-    ]
--- 2.2
 onlyStudents : List User -> List String
-onlyStudents userList =
-    userList
-        |> List.filter (\user -> user.uType == "Student")
-        |> List.map .name
--- 3.0
+onlyStudents users =
+    List.map
+        (\u ->
+            case u.uType of
+                "Student" ->
+                    u.name
+
+                _ ->
+                    ""
+        )
+        users
 type alias Videogame =
     { title : String
     , releaseYear : Int
@@ -46,23 +42,34 @@ type alias Videogame =
     , downloads : Int
     , genres : List String
     }
--- 3.1
-videogames : List Videogame
-videogames =
-    [ { title = "Control"
-      , releaseYear = 2019
-      , available = True
-      , downloads = 5000000
-      , genres = [ "Action", "Shooter" ]
-      }
-    , { title = "Ocarina of Time"
-      , releaseYear = 1998
-      , available = False
-      , downloads = 12000000
-      , genres = [ "Action", "Adventure" ]
-      }
-    ]
--- 3.2
 getVideogameGenres : List Videogame -> List (List String)
-getVideogameGenres games =
-    List.map (\game -> game.genres) games
+getVideogameGenres videogames =
+    List.map .genres videogames
+-- LAPTOP DATA
+type alias Laptop =
+    { ram : String
+    , model : String
+    , brand : String
+    , screenSize : String
+    }
+myLaptop : Laptop
+myLaptop =
+    { ram = "16GB"
+    , model = "TUF A15"
+    , brand = "ASUS"
+    , screenSize = "15.6"
+    }
+-- HTML
+main : Html msg
+main =
+    div []
+        [ h1 [] [ text "My laptop" ]
+        , div []
+            [ ul []
+                [ li [] [ text ("Ram: " ++ myLaptop.ram) ]
+                , li [] [ text ("Modelo: " ++ myLaptop.model) ]
+                , li [] [ text ("Marca: " ++ myLaptop.brand) ]
+                , li [] [ text ("Pulgadas: " ++ myLaptop.screenSize) ]
+                ]
+            ]
+        ]

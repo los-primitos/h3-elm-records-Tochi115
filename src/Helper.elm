@@ -1,6 +1,6 @@
 module Helper exposing (..)
 
-import Html exposing (Html, div, h1, ul, li, text)
+import Html exposing (Html, div, h1, li, text, ul)
 
 
 
@@ -38,7 +38,6 @@ languageNames languages =
     List.map .name languages
 
 
-
 type alias User =
     { name : String
     , uType : String
@@ -57,7 +56,6 @@ onlyStudents users =
                     ""
         )
         users
-
 
 
 type alias Videogame =
